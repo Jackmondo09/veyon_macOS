@@ -1,0 +1,27 @@
+
+name: Veyon macOS ARM64 test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-26
+
+    steps:
+      - name: Download Veyon source
+        uses: actions/checkout@v4
+        with:
+          repository: veyon/veyon
+          ref: v4.11.4
+          submodules: recursive
+
+      - name: Check Mac architecture
+        run: |
+          uname -a
+          uname -m
+          cmake --version
+
+      - name: Configure Veyon
+        run: |
+          cmake -S . -B build
